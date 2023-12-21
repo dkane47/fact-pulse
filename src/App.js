@@ -41,6 +41,15 @@ const App = () => {
     held: [] //problem to repeat
   });
   
+  const [isLevelUpVisible, setIsLevelUpVisible] = React.useState(false);
+
+  // Inside useEffect, add handleOperationChange to the dependency array:
+  React.useEffect(() => {
+    if (logic.operation > 0) {
+      setIsLevelUpVisible(true); // Make the message visible
+    }
+  }, [logic.operation]);
+  
   const generateProblem = () => {
     //if practice mode, only step forward by 1
     if (displaySettings.switched) {
@@ -255,6 +264,11 @@ const App = () => {
 
   return (
     <div className="app" id="app">
+      {isLevelUpVisible && (
+        <div className="level-up-message">
+          Level Up!
+        </div>
+      )}
       {logic.step <= displaySettings.totalProblems ? (
         !displaySettings.showContent ? (
           <Introduction onReadyClick={handleReadyClick} /> //display intro text and button

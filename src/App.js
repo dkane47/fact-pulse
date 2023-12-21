@@ -49,6 +49,13 @@ const App = () => {
       setIsLevelUpVisible(true); // Make the message visible
     }
   }, [logic.operation]);
+
+  // Inside useEffect, add handleOperationChange to the dependency array:
+  React.useEffect(() => {
+    if (logic.step === 1) {
+      setIsLevelUpVisible(false); // Make the message visible
+    }
+  }, [logic.step]);
   
   const generateProblem = () => {
     //if practice mode, only step forward by 1

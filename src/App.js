@@ -43,6 +43,9 @@ const App = () => {
   
   const [isLevelUpVisible, setIsLevelUpVisible] = React.useState(false);
 
+  const [timeToTarget, setTimeToTarget] = React.useState(3500);
+
+
   // Inside useEffect, add handleOperationChange to the dependency array:
   React.useEffect(() => {
     if (logic.operation > 0) {
@@ -73,6 +76,7 @@ const App = () => {
       9, 8, 7, 12, 25, 15, 20, 16, 24, 18, 13, 14, 17, 19
     ]
       }));
+      setTimeToTarget(prevTimeToTarget => prevTimeToTarget - 500);
     } else if (logic.step >= 11) { //if operation is finished reset step and increment operation
       setLogic((prevLogic) => ({
         ...prevLogic,
@@ -82,6 +86,7 @@ const App = () => {
       2, 10, 5, 1, 11, 4, 3, 6, 9, 8, 7, 12 // cut 0s to avoid logic errors
     ]
       }));
+      setTimeToTarget(prevTimeToTarget => prevTimeToTarget - 500);
     } else {
       setLogic((prevLogic) => ({ //otherwise increment step
         ...prevLogic,
@@ -208,7 +213,7 @@ const App = () => {
     const currentTime = Date.now();
     const timeTaken = currentTime - problem.startTime;
     // Determine if time taken is more than 3 seconds
-    const tookMoreThanThreeSeconds = timeTaken > 3000;
+    const tookMoreThanThreeSeconds = timeTaken > timeToTarget;
     //variable for answer
     const ans = problem.num1 * problem.num2;
     //variable for correctness with conditional
